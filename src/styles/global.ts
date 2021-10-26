@@ -22,8 +22,8 @@ export const GlobalStyle = createGlobalStyle`
 
     // REM: 1rem = 16px
     // Default html 100% = 16px
-
     // font-size: 16px (desktop)
+    
     html {
         @media (max-width: 1080) {
             font-size: 93.75%; // 15px
