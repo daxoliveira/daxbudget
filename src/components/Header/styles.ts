@@ -13,8 +13,16 @@ export const Content = styled.div`
     align-items: center;
     justify-content: space-between; 
 
+    img {
+        background: #FFF;
+        border: 0;
+        border-radius: 0.25rem;
+        padding: .5rem 0;
+    }
+
     button {
         font-size: 1rem;
+        font-weight: 600;
         color: #FFF;
         background: var(--blue-light);
         border: 0;
