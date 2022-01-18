@@ -9,7 +9,31 @@ import { Container } from "./styles";
 export function Summary() {
     const { transactions } = useContext(TransactionsContext);
 
-    console.log(transactions);
+    // const totalDeposits = transactions.reduce((acc, transaction) => {
+    //     if (transaction.type === 'deposit') {
+    //         return acc + transaction.amount;
+    //     }
+
+    //     return acc;
+    // }, 0);
+
+    const summary = transactions.reduce((acc, transaction) => {
+        if (transaction.type === 'deposit') {
+            acc.deposits += transaction.amount;
+            acc.total += transaction.amount;
+        } else {
+            acc.withdrawals += transaction.amount;
+            acc.total -= transaction.amount;
+        }
+
+        return acc;
+
+    }, {
+        deposits: 0,
+        withdrawals: 0,
+        total: 0,
+    });
+
     return (
         <Container>
             <div>
@@ -17,21 +41,36 @@ export function Summary() {
                     <p>Deposits</p>
                     <img src={depositsImg} alt="Deposits" />
                 </header>
-                <strong>$1000.00</strong>
+                <strong>
+                    {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    }).format(summary.deposits)}
+                </strong>
             </div>
             <div>
                 <header>
                     <p>Withdrawals</p>
                     <img src={withdrawalsImg} alt="Withdrawals" />
                 </header>
-                <strong>(-)$5000.00</strong>
+                <strong>
+                    {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    }).format(summary.withdrawals)}
+                </strong>
             </div>
             <div className="highlight-background">
                 <header>
                     <p>Balance</p>
                     <img src={balanceImg} alt="Balance" />
                 </header>
-                <strong>(-)$4000.00</strong>
+                <strong>
+                    {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    }).format(summary.total)}
+                </strong>
             </div>
         </Container>
     )
